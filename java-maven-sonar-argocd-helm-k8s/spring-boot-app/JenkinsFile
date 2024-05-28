@@ -29,6 +29,24 @@ pipeline {
         }
       }
     }
+     stage('Create Jira Ticket') {
+            steps {
+                script {
+                    def issueId = jiraSend id: 'create-issue',
+                        site: 'Devlake-jira', 
+                        issue: [
+                            fields: [
+                                project: [key: 'Devlake'],
+                                summary: 'Jenkins pipeline gets failed',
+                                description: 'Jenkins pipeline gets failed',
+                                issuetype: [name: 'Bug']
+                            ]
+                        ]
+                    
+                    echo "Created Jira issue: ${issueId}"
+                }
+            }
+        }
     stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "hemalathamaha98/ultimate-cicd:${BUILD_NUMBER}"
