@@ -68,16 +68,16 @@ pipeline {
   post {
       failure {
 	  script{
-              def issue = [fields: [ project: [key: 'KAN'],
-              def buildNumber = env.BUILD_NUMBER
-              def jobName = env.JOB_NAME
-              //echo "Build Number: ${buildNumber}"
-              //echo "Job Name: ${jobName}"
-              summary: "Pipeline failed: ${jobName} - ${buildNumber}",
-              description: "The pipeline ${jobName} with build number ${buildNumber} failed.",
-              issuetype: [name: 'Task']]]
-              def newIssue = jiraNewIssue issue: issue, site: 'Devlake-jira'
-              echo newIssue.data.key
+                   def buildNumber = env.BUILD_NUMBER
+                    def jobName = env.JOB_NAME
+                    //echo "Build Number: ${buildNumber}"
+                    //echo "Job Name: ${jobName}"
+                    def issue = [fields: [ project: [key: 'KAN'],
+                    summary: "Pipeline failed: ${jobName} - ${buildNumber}",
+                    description: "The pipeline ${jobName} with build number ${buildNumber} failed.",
+                    issuetype: [name: 'Task']]]
+                    def newIssue = jiraNewIssue issue: issue, site: 'Devlake-jira'
+                    echo newIssue.data.key
 	 }
       }
   } 
