@@ -69,8 +69,10 @@ pipeline {
       failure {
 	        script{
               def issue = [fields: [ project: [key: 'KAN'],
+              BUILD_NUMBER=${BUILD_NUMBER}
+              JOB_NAME=${JOB_NAME}
               summary: 'Pipeline failed: ${JOB_NAME} - ${BUILD_NUMBER}',
-              description: '"The pipeline ${JOB_NAME} with build number ${BUILD_NUMBER} failed.',
+              description: 'The pipeline ${JOB_NAME} with build number ${BUILD_NUMBER} failed.',
               issuetype: [name: 'Task']]]
               def newIssue = jiraNewIssue issue: issue, site: 'Devlake-jira'
               echo newIssue.data.key
